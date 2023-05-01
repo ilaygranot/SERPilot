@@ -81,6 +81,8 @@ def main():
             articles.append(article)
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2) / total_items * 100) / 100)
+            
+        df["article"] = articles
 
         # Create a temporary directory to store the generated DOCX files
         timestamp = dt.now().strftime('%Y-%m-%d_%H-%M-%S')
