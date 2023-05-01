@@ -55,11 +55,11 @@ def main():
 
         df = pd.read_csv(uploaded_file)
         df.columns = map(str.lower, df.columns)  # Convert all column names to lowercase
-        df["url path"] = df["keyword / h1"].apply(create_url_path)
+        df["url path"] = df["keywords"].apply(create_url_path)
         df["full path"] = df["url path"].apply(lambda x: create_full_path(domain, x))
 
         topics = df["topic"].tolist()
-        h1_keywords = df["keyword / h1"].tolist()
+        keywords = df["keywords"].tolist()
         sections = df.iloc[:, 7:].values.tolist()
 
         progress_text = "Generating articles. Please wait..."
