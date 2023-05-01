@@ -88,10 +88,10 @@ def main():
             output_dir = os.path.join(temp_dir, f"article_batch_{timestamp}")
             os.makedirs(output_dir)
 
-            for idx, (topic, h1_keyword, article) in enumerate(
-                    zip(topics, h1_keywords, articles)):
+            for idx, (topic, keywords, article) in enumerate(
+                    zip(topics, keywords, articles)):
                 docx_filename = f"{output_dir}/{topic.replace(' ', '_')}_article.docx"
-                save_article_as_docx(docx_filename, h1_keyword, article)
+                save_article_as_docx(docx_filename, keywords, article)
 
             # Save the updated DataFrame to a new CSV file
             output_file = f"{output_dir}/article_batch_{timestamp}.csv"
