@@ -1,11 +1,24 @@
+from io import BytesIO
+import tempfile
 import streamlit as st
 import pandas as pd
-import requests
-import io
-import json
-from app import get_search_results, extract_h_tags, generate_outline
-from parameters import google_languages, google_countries, google_domains, devices, mobile_os, result_block_options
+import time
+import re
+import os
+import zipfile
+from datetime import datetime as dt
 from prompts import prompts
+from app import (
+    create_url_path,
+    create_full_path,
+    generate_content,
+    generate_related_links,
+    generate_article,
+    MyHTMLParser,
+    save_article_as_docx,
+    render_expanders
+)
+from expanders import expanders
 
 def generate_text(api_key, model, prompt, max_tokens, n, stop, temperature, top_p):
     openai.api_key = api_key
