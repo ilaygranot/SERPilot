@@ -71,7 +71,6 @@ def main():
         progress_text = "Generating articles. Please wait..."
         my_bar = st.progress(0)
         total_items = len(topics) * 2
-        # definitions = []
         articles = []
         for idx, (topic, sec) in enumerate(zip(topics, sections)):
             related_links = generate_related_links(df, topic)
