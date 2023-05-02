@@ -60,7 +60,7 @@ def main():
 
         # topics = df["topic"].tolist()
         keywords = df["keywords"].tolist()
-        sections = df.iloc[:, 6:].values.tolist()
+        sections = df.iloc[:, 5:].values.tolist()
         
          # Display the prompt for each keyword
         for keyword, outline in zip(keywords, sections):
@@ -80,7 +80,7 @@ def main():
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
 
-            article = generate_article(api_key, topic, sec, related_links, model, temperature, presence_penalty,
+            article = generate_article(api_key, keyword, sec, related_links, model, temperature, presence_penalty,
                                        frequency_penalty, max_tokens)
             articles.append(article)
             time.sleep(7)
