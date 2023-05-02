@@ -60,7 +60,7 @@ def main():
 
         # topics = df["topic"].tolist()
         keywords = df["keywords"].tolist()
-        sections = df.iloc[:, 5:].values.tolist()
+        sections = df.iloc[:, section_start_col - 1:].values.tolist()
         
          # Display the prompt for each keyword
         for keyword, outline in zip(keywords, sections):
