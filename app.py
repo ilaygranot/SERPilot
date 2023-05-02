@@ -43,6 +43,7 @@ def generate_content(api_key, prompt, sections, model, temperature, presence_pen
     system_message = prompts["system_message"]
 
     print(f"Generated prompt:\n{prompt}\n")
+    st.write(prompt)
 
     messages = [
         {"role": "system", "content": system_message},
