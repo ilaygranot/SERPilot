@@ -70,7 +70,7 @@ def main():
 
         progress_text = "Generating articles. Please wait..."
         my_bar = st.progress(0)
-        total_items = len(topics) * 2
+        total_items = len(keywords) * 2
         articles = []
         # for idx, (topic, sec) in enumerate(zip(topics, sections)):  # Replace this line
         for idx, (keyword, sec) in enumerate(zip(keywords, sections)):
