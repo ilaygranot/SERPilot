@@ -77,7 +77,7 @@ def generate_related_links(df, current_topic):
     if 'category' in df.columns:
         current_category = df.loc[df['keywords'] == current_topic, 'category'].values[0]
         current_full_path = df.loc[df['keywords'] == current_topic, 'full path'].values[0]
-        related_links = df[df['category'] == current_category][['topic', 'full path']]
+        related_links = df[df['category'] == current_category][['keywords', 'full path']]
 
         # Filter out the self-link by comparing the full paths
         related_links = related_links[related_links['full path'] != current_full_path]
@@ -86,8 +86,7 @@ def generate_related_links(df, current_topic):
     else:
         return []
 
-
-def generate_article(api_key, topic, sections, related_links, model, temperature, presence_penalty, frequency_penalty,
+def generate_article(api_key, keyword, sections, related_links, model, temperature, presence_penalty, frequency_penalty,
                      max_tokens):
     if related_links:
         related_links_prompt = prompts["related_links_prompt"].format(
@@ -97,7 +96,7 @@ def generate_article(api_key, topic, sections, related_links, model, temperature
         related_links_prompt = ""
 
     prompt = prompts["article_prompt"].format(
-        topic, "\n".join(str(sec) for sec in sections), related_links_prompt
+        keyword, "\n".join(str(sec) for sec in sections), related_links_prompt
     )
 
     article = generate_content(api_key, prompt, sections, model, temperature, presence_penalty, frequency_penalty,
