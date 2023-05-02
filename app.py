@@ -90,7 +90,7 @@ def generate_related_links(df, current_topic):
 def generate_article(api_key, keyword, sections, related_links, model, temperature, presence_penalty, frequency_penalty,
                      max_tokens):
     if related_links:
-        print("Related Links:", related_links)
+        st.write("Related Links:", related_links)
         related_links_prompt = prompts["related_links_prompt"].format(
             ", ".join([f"{rl['keywords']} ({rl['full path']})" for rl in related_links])
         )
