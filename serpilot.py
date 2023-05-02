@@ -68,9 +68,6 @@ def main():
             st.write(f'Prompt for keyword "{keyword}":')
             st.write(prompts["article_prompt"].format(keyword, formatted_outline))
 
-
-
-
         progress_text = "Generating articles. Please wait..."
         my_bar = st.progress(0)
         total_items = len(topics) * 2
@@ -78,10 +75,7 @@ def main():
         articles = []
         for idx, (topic, sec) in enumerate(zip(topics, sections)):
             related_links = generate_related_links(df, topic)
-
-            # definition = generate_article(api_key, topic, sec, related_links, model, temperature, presence_penalty,
-                                          # frequency_penalty, max_tokens)
-            # definitions.append(definition)
+            
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
 
