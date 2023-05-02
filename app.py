@@ -74,7 +74,14 @@ def generate_content(api_key, prompt, sections, model, temperature, presence_pen
 
 
 def generate_related_links(df, current_topic):
-    if 'category' in df.columns:
+    category_col_name = None
+    
+    for col_name in df.columns:
+        if col_name.lower() == 'category':
+            category_col_name = col_name
+            break
+
+    if category_col_name:
         current_category = df.loc[df['keywords'] == current_topic, 'category'].values[0]
         current_full_path = df.loc[df['keywords'] == current_topic, 'full path'].values[0]
         related_links = df[df['category'] == current_category][['keywords', 'full path']]
