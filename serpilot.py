@@ -63,9 +63,11 @@ def main():
         sections = df.iloc[:, 6:].values.tolist()
         
          # Display the prompt for each keyword
-        for keyword in keywords:
+        for keyword, outline in zip(keywords, sections):
+            formatted_outline = "\n".join(outline)
             st.write(f'Prompt for keyword "{keyword}":')
-            st.write(prompts["article_prompt"].format(keyword, "Outline goes here"))
+            st.write(prompts["article_prompt"].format(keyword, formatted_outline))
+
 
 
 
