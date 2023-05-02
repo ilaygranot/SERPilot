@@ -92,7 +92,7 @@ def generate_article(api_key, keyword, sections, related_links, model, temperatu
     if related_links:
         st.write("Related Links:", related_links)
         related_links_prompt = prompts["related_links_prompt"].format(
-            ", ".join([f"{rl['keywords']} ({rl['full path']})" for rl in related_links])
+            ", ".join([f"{rl['keyword']} ({rl['full path']})" for rl in related_links])
         )
     else:
         related_links_prompt = ""
