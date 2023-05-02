@@ -60,12 +60,14 @@ def main():
 
         topics = df["topic"].tolist()
         keywords = df["keywords"].tolist()
-        sections = df.iloc[:, 7:].values.tolist()
+        sections = df.iloc[:, 6:].values.tolist()
         
          # Display the prompt for each keyword
         for keyword in keywords:
             st.write(f'Prompt for keyword "{keyword}":')
             st.write(prompts["article_prompt"].format(keyword, "Outline goes here"))
+
+
 
         progress_text = "Generating articles. Please wait..."
         my_bar = st.progress(0)
