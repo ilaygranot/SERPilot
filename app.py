@@ -74,14 +74,17 @@ def generate_content(api_key, prompt, sections, model, temperature, presence_pen
 
 
 def generate_related_links(df, current_topic):
-    current_category = df.loc[df['topic'] == current_topic, 'category'].values[0]
-    current_full_path = df.loc[df['topic'] == current_topic, 'full path'].values[0]
-    related_links = df[df['category'] == current_category][['topic', 'full path']]
+    if 'category' in df.columns:
+        current_category = df.loc[df['topic'] == current_topic, 'category'].values[0]
+        current_full_path = df.loc[df['topic'] == current_topic, 'full path'].values[0]
+        related_links = df[df['category'] == current_category][['topic', 'full path']]
 
-    # Filter out the self-link by comparing the full paths
-    related_links = related_links[related_links['full path'] != current_full_path]
+        # Filter out the self-link by comparing the full paths
+        related_links = related_links[related_links['full path'] != current_full_path]
 
-    return related_links.to_dict('records')
+        return related_links.to_dict('records')
+    else:
+        return []
 
 
 def generate_article(api_key, topic, sections, related_links, model, temperature, presence_penalty, frequency_penalty,
