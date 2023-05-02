@@ -58,7 +58,7 @@ def main():
         df["url path"] = df["keywords"].apply(create_url_path)
         df["full path"] = df["url path"].apply(lambda x: create_full_path(domain, x))
 
-        topics = df["topic"].tolist()
+        # topics = df["topic"].tolist()
         keywords = df["keywords"].tolist()
         sections = df.iloc[:, 6:].values.tolist()
         
@@ -72,8 +72,10 @@ def main():
         my_bar = st.progress(0)
         total_items = len(topics) * 2
         articles = []
-        for idx, (topic, sec) in enumerate(zip(topics, sections)):
-            related_links = generate_related_links(df, topic)
+        # for idx, (topic, sec) in enumerate(zip(topics, sections)):  # Replace this line
+        for idx, (keyword, sec) in enumerate(zip(keywords, sections)):
+            related_links = generate_related_links(df, keyword)  # Update the argument from 'topic' to 'keyword'
+
             
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
@@ -92,9 +94,9 @@ def main():
             output_dir = os.path.join(temp_dir, f"article_batch_{timestamp}")
             os.makedirs(output_dir)
 
-            for idx, (topic, keywords, article) in enumerate(
-                    zip(topics, keywords, articles)):
-                docx_filename = f"{output_dir}/{topic.replace(' ', '_')}_article.docx"
+            # for idx, (topic, keywords, article) in enumerate(zip(topics, keywords, articles)):  # Replace this line
+            for idx, (keyword, keywords, article) in enumerate(zip(keywords, keywords, articles)):
+                docx_filename = f"{output_dir}/{keyword.replace(' ', '_')}_article.docx"
                 save_article_as_docx(docx_filename, keywords, article)
 
             # Save the updated DataFrame to a new CSV file
