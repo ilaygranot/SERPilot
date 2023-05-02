@@ -90,7 +90,7 @@ def generate_article(api_key, keyword, sections, related_links, model, temperatu
                      max_tokens):
     if related_links:
         related_links_prompt = prompts["related_links_prompt"].format(
-            ", ".join([f"{rl['topic']} ({rl['full path']})" for rl in related_links])
+            ", ".join([f"{rl['keywords']} ({rl['full path']})" for rl in related_links])
         )
     else:
         related_links_prompt = ""
@@ -102,6 +102,7 @@ def generate_article(api_key, keyword, sections, related_links, model, temperatu
     article = generate_content(api_key, prompt, sections, model, temperature, presence_penalty, frequency_penalty,
                                max_tokens)
     return article
+
 
 
 class MyHTMLParser(HTMLParser):
