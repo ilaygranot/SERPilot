@@ -109,7 +109,7 @@ def main():
                         file_path = os.path.join(folder, filename)
                         zipf.write(file_path, os.path.basename(file_path))
 
-            st.success(f"Generated articles and definitions added to 'article_batch_{timestamp}.zip'.")
+            st.success(f"Generated articles added to 'article_batch_{timestamp}.zip'.")
 
             with open(f"{temp_dir}/article_batch_{timestamp}.zip", "rb") as f:
                 bytes = f.read()
