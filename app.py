@@ -163,7 +163,10 @@ def add_hyperlink(paragraph, text, url):
     return hyperlink
 
 
-def save_article_as_docx(filename, title, content):
+def save_article_as_docx(filename, title, content, generate_docx=True):  # add a flag to control DOCX generation
+    if not generate_docx:  # skip the docx generation if the flag is False
+        return
+
     parser = MyHTMLParser()
     parser.feed(content)
     parsed_content = parser.text
