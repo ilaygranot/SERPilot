@@ -42,11 +42,14 @@ def main():
         model = st.selectbox("Model:", ["gpt-3.5-turbo", "gpt-4"])
         temperature = st.slider("Temperature:", min_value=0.0, max_value=2.0, value=0.7, step=0.1)
         max_tokens = st.slider("Max Tokens:", min_value=1, max_value=8000, value=2048, step=1)
-        presence_penalty = st.slider("Presence Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
-        frequency_penalty = st.slider("Frequency Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
+        # presence_penalty = st.slider("Presence Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
+        # frequency_penalty = st.slider("Frequency Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
 
         # Add the input field for the section start column
         section_start_col = st.number_input("Section Start Column (default is 7)", min_value=1, value=7, step=1)
+        
+        # Add the switch for the DOCX file generation
+        generate_docx = st.checkbox("Generate DOCX files", value=True)
 
     if st.button("Generate Articles"):
         if not api_key or not uploaded_file:
@@ -94,10 +97,9 @@ def main():
             output_dir = os.path.join(temp_dir, f"article_batch_{timestamp}")
             os.makedirs(output_dir)
 
-            # for idx, (topic, keywords, article) in enumerate(zip(topics, keywords, articles)):  # Replace this line
-            for idx, (keyword, keywords, article) in enumerate(zip(keywords, keywords, articles)):
-                docx_filename = f"{output_dir}/{keyword.replace(' ', '_')}_article.docx"
-                save_article_as_docx(docx_filename, keywords, article)
+        for idx, (keyword, keywords, article) in enumerate(zip(keywords, keywords, articles)):
+            docx_filename = f"{output_dir}/{keyword.replace(' ', '_')}_article.docx"
+            save_article_as_docx(docx_filename, keywords, article, generate_docx)  # Pass the generate_docx flag
 
             # Save the updated DataFrame to a new CSV file
             output_file = f"{output_dir}/article_batch_{timestamp}.csv"
