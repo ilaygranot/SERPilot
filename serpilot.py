@@ -42,8 +42,8 @@ def main():
         model = st.selectbox("Model:", ["gpt-3.5-turbo", "gpt-4"])
         temperature = st.slider("Temperature:", min_value=0.0, max_value=2.0, value=0.7, step=0.1)
         max_tokens = st.slider("Max Tokens:", min_value=1, max_value=8000, value=2048, step=1)
-        # presence_penalty = st.slider("Presence Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
-        # frequency_penalty = st.slider("Frequency Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
+        presence_penalty = st.slider("Presence Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
+        frequency_penalty = st.slider("Frequency Penalty:", min_value=-2.0, max_value=2.0, value=0.2, step=0.1)
 
         # Add the input field for the section start column
         section_start_col = st.number_input("Section Start Column (default is 7)", min_value=1, value=7, step=1)
@@ -83,7 +83,7 @@ def main():
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
 
-            article = generate_article(api_key, keyword, sec, related_links, model, temperature, max_tokens)
+            article = generate_article(api_key, keyword, sec, related_links, model, temperature, presence_penalty, frequency_penalty, max_tokens)
             articles.append(article)
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2) / total_items * 100) / 100)
