@@ -47,9 +47,6 @@ def main():
 
         # Add the input field for the section start column
         section_start_col = st.number_input("Section Start Column (default is 7)", min_value=1, value=7, step=1)
-        
-        # Add the switch for the DOCX file generation
-        generate_docx = st.checkbox("Generate DOCX files", value=True)
 
     if st.button("Generate Articles"):
         if not api_key or not uploaded_file:
@@ -79,16 +76,12 @@ def main():
         for idx, (keyword, sec) in enumerate(zip(keywords, sections)):
             related_links = generate_related_links(df, keyword)  # Update the argument from 'topic' to 'keyword'
 
-            # Write the related_links to the Streamlit app for debugging
-            st.write(f"Related links for keyword '{keyword}':")
-            st.write(related_links)
-
-
             
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
 
-            article = generate_article(api_key, keyword, sec, related_links, model, temperature, presence_penalty, frequency_penalty, max_tokens)
+            article = generate_article(api_key, keyword, sec, related_links, model, temperature, presence_penalty,
+                                       frequency_penalty, max_tokens)
             articles.append(article)
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2) / total_items * 100) / 100)
@@ -101,9 +94,10 @@ def main():
             output_dir = os.path.join(temp_dir, f"article_batch_{timestamp}")
             os.makedirs(output_dir)
 
-        for idx, (keyword, keywords, article) in enumerate(zip(keywords, keywords, articles)):
-            docx_filename = f"{output_dir}/{keyword.replace(' ', '_')}_article.docx"
-            save_article_as_docx(docx_filename, keywords, article, generate_docx)  # Pass the generate_docx flag
+            # for idx, (topic, keywords, article) in enumerate(zip(topics, keywords, articles)):  # Replace this line
+            for idx, (keyword, keywords, article) in enumerate(zip(keywords, keywords, articles)):
+                docx_filename = f"{output_dir}/{keyword.replace(' ', '_')}_article.docx"
+                save_article_as_docx(docx_filename, keywords, article)
 
             # Save the updated DataFrame to a new CSV file
             output_file = f"{output_dir}/article_batch_{timestamp}.csv"
