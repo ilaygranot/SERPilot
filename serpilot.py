@@ -79,6 +79,11 @@ def main():
         for idx, (keyword, sec) in enumerate(zip(keywords, sections)):
             related_links = generate_related_links(df, keyword)  # Update the argument from 'topic' to 'keyword'
 
+            # Write the related_links to the Streamlit app for debugging
+            st.write(f"Related links for keyword '{keyword}':")
+            st.write(related_links)
+
+
             
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
