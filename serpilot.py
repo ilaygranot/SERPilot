@@ -95,7 +95,7 @@ def main():
             os.makedirs(output_dir)
 
             # for idx, (topic, keywords, article) in enumerate(zip(topics, keywords, articles)):  # Replace this line
-            for idx, (keyword, keywords, article) in enumerate(zip(keywords, keywords, articles)):
+            for idx, (keyword, keywords, article) in enumerate(zip(keyword, keywords, articles)):
                 docx_filename = f"{output_dir}/{keyword.replace(' ', '_')}_article.docx"
                 save_article_as_docx(docx_filename, keywords, article)
 
