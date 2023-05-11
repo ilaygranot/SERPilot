@@ -83,8 +83,7 @@ def main():
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2 - 1) / total_items * 100) / 100)
 
-            article = generate_article(api_key, keyword, sec, related_links, model, temperature, presence_penalty,
-                                       frequency_penalty, max_tokens)
+            article = generate_article(api_key, keyword, sec, related_links, model, temperature, max_tokens)
             articles.append(article)
             time.sleep(7)
             my_bar.progress((((idx + 1) * 2) / total_items * 100) / 100)
